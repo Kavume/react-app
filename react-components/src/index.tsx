@@ -5,7 +5,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import NotFoundPage from "./pages/NotFoundPage";
+import {NotFoundPage} from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
     {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '*',
-                element: <NotFoundPage />
+                element: <NotFoundPage/>
             }
         ]
 
@@ -29,4 +29,3 @@ root.render(
         <RouterProvider router={router}/>
     </React.StrictMode>
 );
-

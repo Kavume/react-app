@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styles from './Button.module.scss';
 
 interface ButtonProps {
@@ -6,10 +6,16 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-const Button = ({text, onClick}: ButtonProps) => {
-    return (
-        <button className={styles.button} onClick={onClick}>{text}</button>
-    );
-};
+class Button extends Component<ButtonProps> {
+    constructor(props: ButtonProps) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <button className={styles.button} onClick={this.props.onClick}>{this.props.text}</button>
+        )
+    }
+}
 
 export default Button;
