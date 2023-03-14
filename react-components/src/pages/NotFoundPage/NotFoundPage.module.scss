@@ -1,0 +1,42 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 180px;
+  gap: 72px;
+  align-items: center;
+  justify-content: center;
+
+  .textWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    text-align: center;
+
+    .title {
+      font-size: 3.6rem;
+      color: var(--blue);
+    }
+
+    .text {
+      font-size: 1rem;
+      line-height: 1.4rem;
+      width: 60%;
+      color: var(--secondary-text);
+    }
+
+    @media screen and (max-width: 640px){
+      .title {
+        font-size: 2.6rem;
+      }
+
+      .text {
+        font-size: 0.8rem;
+        line-height: 1.1rem;
+        width: 90%;
+      }
+    }
+  }
+}
