@@ -4,6 +4,7 @@
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "eslint-config-prettier",
     "plugin:react-hooks/recommended",
     "plugin:prettier/recommended"
   ],
