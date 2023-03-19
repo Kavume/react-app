@@ -1,24 +1,68 @@
 import React, { Component } from 'react';
 import styles from './Card.module.scss';
-import Example from './../../assets/images/example.jpeg';
 import { LikeIcon } from './LikeIcon';
 
-class Card extends Component {
+interface CardProps {
+  title: string;
+  description: string;
+  authorInfo: string;
+  likes: number;
+  image: string;
+  fill: string;
+  color: string;
+}
+
+interface CardState {
+  imageLoaded: boolean;
+}
+
+class Card extends Component<CardProps, CardState> {
+  constructor(props: CardProps) {
+    super(props);
+    this.state = {
+      imageLoaded: false,
+    };
+  }
+
+  componentDidMount() {
+    const image = new Image();
+    image.onload = () => {
+      this.setState({ imageLoaded: true });
+    };
+    image.src = this.props.image;
+  }
+
+  componentDidUpdate(prevProps: CardProps) {
+    if (prevProps.image !== this.props.image) {
+      const image = new Image();
+      image.onload = () => {
+        this.setState({ imageLoaded: true });
+      };
+      image.src = this.props.image;
+    }
+  }
+
   render() {
+    const { title, description, authorInfo, likes, fill, color, image } = this.props;
+    const { imageLoaded } = this.state;
     return (
       <div className={styles.cardContainer}>
         <div className={styles.imageWrapper}>
-          <img className={styles.image} src={Example} alt="card" />
+          {imageLoaded ? (
+            <img className={styles.image} src={image} alt="card image" />
+          ) : (
+            <div data-id={'jhhjs'} className={styles.placeholder} />
+          )}
         </div>
         <div className={styles.infoWrapper}>
           <div>
-            <p className={styles.title}>Title</p>
-            <p className={styles.description}>Description ipsum lorem text ipsum lorem</p>
+            <p className={styles.title}>{title}</p>
+            <p className={styles.description}>{description}</p>
           </div>
-          <p className={styles.authorInfo}>by Name</p>
+          <p className={styles.authorInfo}>by {authorInfo}</p>
           <div className={styles.likesWrapper}>
-            <LikeIcon className={styles.icon} fill={'none'} color={'var(--gray)'} />
-            <p className={styles.likes}>1200</p>
+            <LikeIcon className={styles.icon} fill={fill} color={color} />
+            <p className={styles.likes}>{likes}</p>
           </div>
         </div>
       </div>

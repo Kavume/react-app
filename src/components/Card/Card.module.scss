@@ -1,6 +1,6 @@
 .cardContainer {
   width: 24%;
-  height: 24%;
+  height: auto;
   border-radius: 6px;
   border: 1px solid var(--gray);
   overflow: hidden;
@@ -68,4 +68,9 @@
 .icon {
   width: 1rem;
   object-fit: cover;
+}
+
+.placeholder {
+  background-color: var(--blue);
+  height: 100%;
 }
