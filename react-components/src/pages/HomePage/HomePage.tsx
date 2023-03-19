@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from './HomePage.module.scss';
 import { SearchBar } from '../../components/SearchBar';
+import { Card } from '../../components/Card';
 
 class HomePage extends Component {
   render() {
@@ -12,6 +13,14 @@ class HomePage extends Component {
             <p className={styles.text}>What are we looking for today?</p>
           </div>
           <SearchBar onChange={() => ''} />
+        </div>
+        <div className={styles.cardsWrapper}>
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
+          <Card />
         </div>
       </div>
     );

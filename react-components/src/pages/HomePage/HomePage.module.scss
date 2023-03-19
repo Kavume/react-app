@@ -1,7 +1,5 @@
 .main {
   padding: 32px;
-  border-top: 2px dashed var(--blue);
-  border-bottom: 2px dashed var(--blue);
 }
 
 .textWrapper {
@@ -22,9 +20,24 @@
   gap: 32px;
   align-items: center;
   justify-content: center;
+  border-top: 2px dashed var(--blue);
+  border-bottom: 2px dashed var(--blue);
 
   .title {
     font-size: 2rem;
     color: var(--blue);
+  }
+}
+
+.cardsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem 1%;
+  justify-content: flex-start;
+  padding: 40px 0;
+
+  @media screen and (max-width: 640px) {
+    gap: 0.5rem 1%;
   }
 }
