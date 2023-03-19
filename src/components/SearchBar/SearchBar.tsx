@@ -13,9 +13,21 @@ interface SearchBarState {
 class SearchBar extends Component<SearchBarProps, SearchBarState> {
   constructor(props: SearchBarProps) {
     super(props);
+    const searchData = localStorage.getItem('searchData') || '';
     this.state = {
-      searchData: '',
+      searchData,
     };
+  }
+
+  componentDidMount() {
+    const searchData = localStorage.getItem('searchData') || '';
+    if (searchData) {
+      this.props.onChange(searchData);
+    }
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('searchData', this.state.searchData);
   }
 
   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
