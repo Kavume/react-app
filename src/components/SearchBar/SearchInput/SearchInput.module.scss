@@ -1,0 +1,44 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  color: var(--main-text);
+}
+
+.inputWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  object-fit: cover;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+}
+
+.input {
+  padding: 10px 16px 10px 40px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid var(--gray);
+  color: var(--main-text);
+  min-width: 300px;
+  font-size: 0.9rem;
+
+  &:focus {
+    border: 1px solid var(--blue);
+  }
+
+  &::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+}
