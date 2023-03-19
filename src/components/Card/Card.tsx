@@ -51,7 +51,7 @@ class Card extends Component<CardProps, CardState> {
           {imageLoaded ? (
             <img className={styles.image} src={image} alt="card image" />
           ) : (
-            <div data-id={'jhhjs'} className={styles.placeholder} />
+            <div data-testid="placeholder" className={styles.placeholder} />
           )}
         </div>
         <div className={styles.infoWrapper}>

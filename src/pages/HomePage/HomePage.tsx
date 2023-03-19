@@ -4,7 +4,7 @@ import { SearchBar } from '../../components/SearchBar';
 import { Card } from '../../components/Card';
 import Example from '../../assets/images/example.jpeg';
 
-const data = [
+export const data = [
   {
     authorInfo: 'Will Shekspir',
     color: 'var(--gray)',
@@ -18,7 +18,7 @@ const data = [
 class HomePage extends Component {
   render() {
     return (
-      <div className={styles.main}>
+      <div className={styles.main} data-testid={'home-page'}>
         <div className={styles.searchBarWrapper}>
           <div className={styles.textWrapper}>
             <h2 className={styles.title}>Site Search</h2>

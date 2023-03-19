@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 class NotFoundPage extends Component {
   render() {
     return (
-      <div className={styles.main}>
+      <div className={styles.main} data-testid={'not-found-page'}>
         <div className={styles.textWrap}>
           <h2 className={styles.title}>Something&apos;s wrong here!</h2>
           <p className={styles.text}>

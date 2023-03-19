@@ -6,7 +6,7 @@ import { Header } from '../Header';
 class Layout extends Component {
   render() {
     return (
-      <div className={styles.layout}>
+      <div className={styles.layout} data-testid={'layout'}>
         <Header />
         <main className={styles.main}>
           <Outlet />
