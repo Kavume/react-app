@@ -15,6 +15,12 @@ class Header extends Component {
         >
           About Us
         </NavLink>
+        <NavLink
+          to="/contact-form"
+          className={({ isActive }) => (isActive ? styles.link && styles.active : styles.link)}
+        >
+          Contact Form
+        </NavLink>
       </div>
     );
   }
