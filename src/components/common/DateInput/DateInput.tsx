@@ -1,32 +1,30 @@
 import React, { Component, RefObject } from 'react';
-import styles from './TextInput.module.scss';
+import styles from './DateInput.module.scss';
 
-interface TextInputProps {
+interface DateInputProps {
   label: string;
-  placeholder: string;
 }
 
-class TextInput extends Component<TextInputProps> {
+class DateInput extends Component<DateInputProps> {
   inputRef: RefObject<HTMLInputElement>;
 
-  constructor(props: TextInputProps) {
+  constructor(props: DateInputProps) {
     super(props);
     this.inputRef = React.createRef<HTMLInputElement>();
   }
 
   displayErrorMessage() {
     const input = this.inputRef.current;
-    if (!input) return '';
+    const dateValue = input?.value;
+    if (!dateValue) {
+      return '* Enter your birth date';
+    }
 
-    const value = input.value.trim();
-    if (!value) {
-      return '* This field is required';
-    } else if (value.length < 2) {
-      return '* This field must have at least 2 letters';
-    } else if (!/^[a-zA-Z ]+$/.test(value)) {
-      return '* This field must contain only letters';
+    const enteredDate = new Date(dateValue);
+    if (enteredDate.getFullYear() < 1930) {
+      return '* Please enter the correct data';
     } else {
-      return '';
+      return '* You must be 18 years or older';
     }
   }
 
@@ -36,10 +34,18 @@ class TextInput extends Component<TextInputProps> {
 
   validate = () => {
     const input = this.inputRef.current;
-    if (!input) return;
+    const dateValue = input?.value;
 
-    const value = input.value.trim();
-    if (!value || value.length < 2 || !/^[a-zA-Z ]+$/.test(value)) {
+    if (!dateValue) {
+      this.setState({ error: true });
+      return;
+    }
+
+    const dateNow = new Date();
+    const minDate = new Date(dateNow.getFullYear() - 18, dateNow.getMonth(), dateNow.getDate());
+    const enteredDate = new Date(dateValue);
+
+    if (enteredDate > minDate || enteredDate.getFullYear() < 1930) {
       this.setState({ error: true });
     } else {
       this.setState({ error: false });
@@ -56,10 +62,10 @@ class TextInput extends Component<TextInputProps> {
           {this.props.label}
         </label>
         <input
-          type="text"
+          type="date"
           id={this.props.label}
+          name="birth date"
           className={`${styles.input} ${this.state.error ? styles.error : ''}`}
-          placeholder={this.props.placeholder}
           ref={this.inputRef}
           onBlur={this.validate}
         />
@@ -69,4 +75,4 @@ class TextInput extends Component<TextInputProps> {
   }
 }
 
-export default TextInput;
+export default DateInput;

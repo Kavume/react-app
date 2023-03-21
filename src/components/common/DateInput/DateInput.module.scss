@@ -1,0 +1,38 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  &.error {
+    color: var(--error);
+  }
+}
+
+.input {
+  outline: none;
+  border: 1px solid var(--gray-forms);
+  border-radius: 10px;
+  color: var(--main-text);
+  font-size: 1rem;
+  padding: 16px;
+  background-color: var(--white);
+
+  &:focus {
+    border: 1px solid var(--blue);
+  }
+
+  &.error {
+    border: 1px solid var(--error);
+  }
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 0.8rem;
+}
