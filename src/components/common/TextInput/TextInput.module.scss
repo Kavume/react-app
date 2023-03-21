@@ -9,6 +9,10 @@
   color: var(--blue);
   font-size: 0.9rem;
   font-weight: 500;
+
+  &.error {
+    color: var(--error);
+  }
 }
 
 .input {
@@ -24,4 +28,12 @@
     border: 1px solid var(--blue);
   }
 
+  &.error {
+    border: 1px solid var(--error);
+  }
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 0.8rem;
 }
