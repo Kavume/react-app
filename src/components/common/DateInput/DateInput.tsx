@@ -1,5 +1,5 @@
 import React, { Component, RefObject } from 'react';
-import styles from './DateInput.module.scss';
+import inputStyles from './../styles/Input.module.scss';
 
 interface DateInputProps {
   label: string;
@@ -54,9 +54,9 @@ class DateInput extends Component<DateInputProps> {
 
   render() {
     return (
-      <div className={styles.inputWrapper}>
+      <div className={inputStyles.inputWrapper}>
         <label
-          className={`${styles.label} ${this.state.error ? styles.error : ''}`}
+          className={`${inputStyles.label} ${this.state.error ? inputStyles.error : ''}`}
           htmlFor={this.props.label}
         >
           {this.props.label}
@@ -65,11 +65,13 @@ class DateInput extends Component<DateInputProps> {
           type="date"
           id={this.props.label}
           name="birth date"
-          className={`${styles.input} ${this.state.error ? styles.error : ''}`}
+          className={`${inputStyles.input} ${this.state.error ? inputStyles.error : ''}`}
           ref={this.inputRef}
           onBlur={this.validate}
         />
-        {this.state.error && <p className={styles.errorMessage}>{this.displayErrorMessage()}</p>}
+        {this.state.error && (
+          <p className={inputStyles.errorMessage}>{this.displayErrorMessage()}</p>
+        )}
       </div>
     );
   }
