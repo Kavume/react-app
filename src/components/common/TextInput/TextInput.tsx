@@ -64,7 +64,9 @@ class TextInput extends Component<TextInputProps> {
           onBlur={this.validate}
         />
         {this.state.error && (
-          <p className={inputStyles.errorMessage}>{this.displayErrorMessage()}</p>
+          <p data-testid="error-message" className={inputStyles.errorMessage}>
+            {this.displayErrorMessage()}
+          </p>
         )}
       </div>
     );
