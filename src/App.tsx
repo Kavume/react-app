@@ -13,10 +13,10 @@ class App extends Component {
     return (
       <div>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route path="/*" element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-form" element={<ContactForm />} />
+            <Route path="/*/about-us" element={<AboutUs />} />
+            <Route path="/*/contact-form" element={<ContactForm />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
