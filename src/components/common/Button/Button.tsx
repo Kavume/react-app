@@ -4,6 +4,7 @@ import styles from './Button.module.scss';
 interface ButtonProps {
   text: string;
   onClick?: () => void;
+  isPrimary: boolean;
 }
 
 class Button extends Component<ButtonProps> {
@@ -13,7 +14,12 @@ class Button extends Component<ButtonProps> {
 
   render() {
     return (
-      <button className={styles.button} onClick={this.props.onClick}>
+      <button
+        className={`${styles.button} ${
+          this.props.isPrimary ? styles.buttonPrimary : styles.buttonSecondary
+        }`}
+        onClick={this.props.onClick}
+      >
         {this.props.text}
       </button>
     );

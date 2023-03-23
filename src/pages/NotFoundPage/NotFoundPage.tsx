@@ -15,7 +15,7 @@ class NotFoundPage extends Component {
           </p>
         </div>
         <Link to="/">
-          <Button text={'Go back'} />
+          <Button text={'Go back'} isPrimary={true} />
         </Link>
       </div>
     );

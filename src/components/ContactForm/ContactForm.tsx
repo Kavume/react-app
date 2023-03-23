@@ -5,6 +5,7 @@ import { DateInput } from '../common/DateInput';
 import { DropdownInput } from '../common/DropdownInput';
 import { CheckboxInput } from '../common/CheckboxInput';
 import { RadioInput } from '../common/RadioInput';
+import { FileUpload } from '../common/FileUpload';
 
 const dropdownInputData = [
   { value: 'Male' },
@@ -35,6 +36,7 @@ class ContactForm extends Component {
       <div className={styles.main}>
         <h2 className={styles.title}>Contact Form</h2>
         <div className={styles.formWrapper}>
+          <FileUpload label={'Upload your profile image'} />
           <TextInput label={'Name'} placeholder={'Enter your name'} />
           <TextInput label={'Surname'} placeholder={'Enter your surname'} />
           <DropdownInput
