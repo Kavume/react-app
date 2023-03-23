@@ -4,6 +4,7 @@ import { TextInput } from '../common/TextInput';
 import { DateInput } from '../common/DateInput';
 import { DropdownInput } from '../common/DropdownInput';
 import { CheckboxInput } from '../common/CheckboxInput';
+import { RadioInput } from '../common/RadioInput';
 
 const dropdownInputData = [
   { value: 'Male' },
@@ -18,6 +19,14 @@ const checkboxInputContactData = [
   { value: 'Call' },
   { value: 'Email' },
   { value: 'Video chat' },
+];
+
+const radioInputRateData = [
+  { id: 'rate1', label: 'Very satisfied' },
+  { id: 'rate2', label: 'Satisfied' },
+  { id: 'rate3', label: 'Neutral' },
+  { id: 'rate4', label: 'Unsatisfied' },
+  { id: 'rate5', label: 'Very unsatisfied' },
 ];
 
 class ContactForm extends Component {
@@ -43,6 +52,11 @@ class ContactForm extends Component {
             title={'Choose how we can contact'}
             checkboxes={checkboxInputContactData}
             name={'contacts'}
+          />
+          <RadioInput
+            name={'Rate'}
+            radioInputs={radioInputRateData}
+            title={'How satisfied are you with our service?'}
           />
         </div>
       </div>
