@@ -6,6 +6,8 @@ interface DropdownInputProps {
   label: string;
   placeholder: string;
   options: { value: string }[];
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  name: string;
 }
 
 class DropdownInput extends Component<DropdownInputProps> {
@@ -48,9 +50,10 @@ class DropdownInput extends Component<DropdownInputProps> {
             this.state.error ? inputStyles.error : ''
           }`}
           id={this.props.label}
-          name={this.props.label}
+          name={this.props.name}
           ref={this.selectRef}
           onBlur={() => this.onBlurValidate()}
+          onChange={this.props.onChange}
         >
           <option value="">{this.props.placeholder}</option>
           {this.props.options.map((item) => (

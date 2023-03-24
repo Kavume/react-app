@@ -4,6 +4,8 @@ import DateInput from './DateInput';
 
 const props = {
   label: 'Example label',
+  onChange: jest.fn(),
+  name: 'Example name',
 };
 
 describe('DateInput', () => {
@@ -20,7 +22,7 @@ describe('DateInput', () => {
     render(<DateInput {...props} />);
     const input = screen.getByLabelText('Example label');
     expect(input).toHaveAttribute('type', 'date');
-    expect(input).toHaveAttribute('name', 'birth date');
+    expect(input).toHaveAttribute('name', 'Example name');
     expect(input).not.toHaveAttribute('required');
   });
 

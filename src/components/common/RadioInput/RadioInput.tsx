@@ -6,6 +6,7 @@ interface RadioInputProps {
   name: string;
   radioInputs: { id: string; label: string }[];
   title: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class RadioInput extends Component<RadioInputProps> {
@@ -29,6 +30,7 @@ class RadioInput extends Component<RadioInputProps> {
                 name={this.props.name}
                 value={item.label}
                 ref={this.selectRef}
+                onChange={this.props.onChange}
               />
               <label className={styles.label} htmlFor={item.id}>
                 {item.label}

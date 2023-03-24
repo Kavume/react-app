@@ -3,6 +3,8 @@ import inputStyles from './../styles/Input.module.scss';
 
 interface DateInputProps {
   label: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
 }
 
 class DateInput extends Component<DateInputProps> {
@@ -64,10 +66,11 @@ class DateInput extends Component<DateInputProps> {
         <input
           type="date"
           id={this.props.label}
-          name="birth date"
+          name={this.props.name}
           className={`${inputStyles.input} ${this.state.error ? inputStyles.error : ''}`}
           ref={this.inputRef}
           onBlur={this.validate}
+          onChange={this.props.onChange}
         />
         {this.state.error && (
           <p className={inputStyles.errorMessage}>{this.displayErrorMessage()}</p>

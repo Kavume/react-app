@@ -4,6 +4,7 @@ import { Button } from '../Button';
 
 interface FileUploadProps {
   label: string;
+  name: string;
 }
 
 class FileUpload extends Component<FileUploadProps> {
@@ -46,6 +47,7 @@ class FileUpload extends Component<FileUploadProps> {
             onChange={this.onFileChange}
             id="file-input"
             ref={this.fileInputRef}
+            name={this.props.name}
           />
           <Button
             text={'Upload'}

@@ -4,10 +4,12 @@ import TextInput from './TextInput';
 
 const props = {
   label: 'Example lable',
+  name: 'Example name',
   placeholder: 'Example placeholder',
-  errorMessageEmpty: '* This field is required',
-  errorMessageLength: '* This field must have at least 2 letters',
-  errorMessageNum: '* This field must contain only letters',
+  errormessageempty: '* This field is required',
+  errormessagelength: '* This field must have at least 2 letters',
+  errormessagenum: '* This field must contain only letters',
+  onChange: jest.fn(),
 };
 
 describe('TextInput', () => {
@@ -35,7 +37,7 @@ describe('TextInput', () => {
     fireEvent.blur(input);
     const errorMessage = getByTestId('error-message');
     expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errorMessageNum);
+    expect(errorMessage.textContent).toBe(props.errormessagenum);
   });
 
   it('should show error message if input value has length less 2', () => {
@@ -45,7 +47,7 @@ describe('TextInput', () => {
     fireEvent.blur(input);
     const errorMessage = getByTestId('error-message');
     expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errorMessageLength);
+    expect(errorMessage.textContent).toBe(props.errormessagelength);
   });
 
   it('should show error message if input value is empty', () => {
@@ -55,7 +57,7 @@ describe('TextInput', () => {
     fireEvent.blur(input);
     const errorMessage = getByTestId('error-message');
     expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errorMessageEmpty);
+    expect(errorMessage.textContent).toBe(props.errormessageempty);
   });
 
   it('should not show error message if input value is valid', () => {
@@ -64,7 +66,7 @@ describe('TextInput', () => {
     fireEvent.change(input, { target: { value: 'Example Input' } });
     fireEvent.blur(input);
     expect(
-      queryByText(props.errorMessageNum || props.errorMessageLength || props.errorMessageEmpty)
+      queryByText(props.errormessagenum || props.errormessagelength || props.errormessageempty)
     ).toBeNull();
   });
 });

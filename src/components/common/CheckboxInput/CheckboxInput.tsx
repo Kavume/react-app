@@ -6,6 +6,7 @@ interface CheckboxInputProps {
   checkboxes: { value: string }[];
   title: string;
   name: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class CheckboxInput extends Component<CheckboxInputProps> {
@@ -24,6 +25,7 @@ class CheckboxInput extends Component<CheckboxInputProps> {
               type="checkbox"
               id={item.value}
               name={this.props.name}
+              onChange={this.props.onChange}
             />
             <label htmlFor={item.value}>{item.value}</label>
           </div>

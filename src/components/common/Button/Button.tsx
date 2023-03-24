@@ -3,8 +3,9 @@ import styles from './Button.module.scss';
 
 interface ButtonProps {
   text: string;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   isPrimary: boolean;
+  type?: string;
 }
 
 class Button extends Component<ButtonProps> {

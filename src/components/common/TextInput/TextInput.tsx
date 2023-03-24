@@ -4,6 +4,9 @@ import inputStyles from './../styles/Input.module.scss';
 interface TextInputProps {
   label: string;
   placeholder: string;
+  defaultValue?: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
 }
 
 class TextInput extends Component<TextInputProps> {
@@ -59,9 +62,9 @@ class TextInput extends Component<TextInputProps> {
           type="text"
           id={this.props.label}
           className={`${inputStyles.input} ${this.state.error ? inputStyles.error : ''}`}
-          placeholder={this.props.placeholder}
           ref={this.inputRef}
           onBlur={this.validate}
+          {...this.props}
         />
         {this.state.error && (
           <p data-testid="error-message" className={inputStyles.errorMessage}>

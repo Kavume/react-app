@@ -6,7 +6,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import './styles/global.scss';
 import './styles/colors.scss';
 import { AboutUs } from './pages/AboutUs';
-import { ContactForm } from './components/ContactForm';
+import ContactFormPage from './pages/ContactFormPage/ContactFormPage';
 
 class App extends Component {
   render() {
@@ -16,7 +16,7 @@ class App extends Component {
           <Route path="/*" element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path="/*/about-us" element={<AboutUs />} />
-            <Route path="/*/contact-form" element={<ContactForm />} />
+            <Route path="/*/contact-form" element={<ContactFormPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

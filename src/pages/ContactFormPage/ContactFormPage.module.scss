@@ -1,0 +1,12 @@
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.listsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px 1%;
+}

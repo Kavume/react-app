@@ -10,6 +10,7 @@ const props = {
     { id: 'exampleId3', label: 'example label 3' },
   ],
   title: 'Example title',
+  onChange: jest.fn(),
 };
 
 describe('RadioInput', () => {

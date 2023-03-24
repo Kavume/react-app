@@ -7,6 +7,8 @@ const props = {
   label: 'Example label',
   placeholder: 'Example placeholder',
   options: [{ value: 'value 1' }, { value: 'value 2' }],
+  onChange: () => console.log('Example'),
+  name: 'Example name',
 };
 
 describe('DropdownInput', () => {
@@ -38,7 +40,7 @@ describe('DropdownInput', () => {
     const select = screen.getByLabelText('Example label') as HTMLSelectElement;
     expect(select).toBeInTheDocument();
     expect(select.selectedOptions[0].value).toBe('');
-    expect(select.name).toBe('Example label');
+    expect(select.name).toBe('Example name');
   });
 
   it('should render an error message when the user does not select an option', () => {

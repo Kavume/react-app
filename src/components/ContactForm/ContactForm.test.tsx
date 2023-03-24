@@ -2,19 +2,24 @@ import React from 'react';
 import ContactForm from './ContactForm';
 import { render, screen, fireEvent } from '@testing-library/react';
 
+const props = {
+  onSubmit: jest.fn(),
+  onReset: jest.fn(),
+};
+
 describe('ContactForm', () => {
   it('should render contact form', () => {
-    render(<ContactForm />);
+    render(<ContactForm {...props} />);
   });
 
   it('should render the correct title', () => {
-    const { getByText } = render(<ContactForm />);
+    const { getByText } = render(<ContactForm {...props} />);
     const title = getByText('Contact Form');
     expect(title).toBeInTheDocument();
   });
 
   it('should render all expected input fields', () => {
-    render(<ContactForm />);
+    render(<ContactForm {...props} />);
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
     expect(screen.getByLabelText('Surname')).toBeInTheDocument();
     expect(screen.getByLabelText('Gender')).toBeInTheDocument();
@@ -25,7 +30,7 @@ describe('ContactForm', () => {
   });
 
   it('checkbox components work', () => {
-    render(<ContactForm />);
+    render(<ContactForm {...props} />);
     const agreementCheckbox = screen.getByLabelText('I consent to my personal data');
     const contactCheckbox = screen.getByLabelText('SMS');
     fireEvent.click(agreementCheckbox);

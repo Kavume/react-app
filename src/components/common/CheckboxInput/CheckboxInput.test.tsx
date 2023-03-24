@@ -6,6 +6,7 @@ const props = {
   checkboxes: [{ value: 'Example 1' }, { value: 'Example 2' }, { value: 'Example 3' }],
   title: 'Example title',
   name: 'Example name',
+  onChange: jest.fn(),
 };
 
 describe('CheckboxInput', () => {
