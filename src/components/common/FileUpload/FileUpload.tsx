@@ -5,6 +5,7 @@ import { Button } from '../Button';
 interface FileUploadProps {
   label: string;
   name: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 class FileUpload extends Component<FileUploadProps> {
@@ -18,11 +19,12 @@ class FileUpload extends Component<FileUploadProps> {
 
   fileInputRef = createRef<HTMLInputElement>();
 
-  onFileChange = () => {
+  onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = this.fileInputRef.current?.files && this.fileInputRef.current?.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       this.setState({ imageUrl });
+      this.props.onChange(event);
     }
   };
 

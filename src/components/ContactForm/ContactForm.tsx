@@ -41,6 +41,7 @@ interface ContactFormProps {
     agreement: boolean;
     contacts: string[];
     rate: string;
+    image: string;
   }) => void;
   onReset: () => void;
 }
@@ -57,6 +58,7 @@ class ContactForm extends Component<ContactFormProps> {
       agreement: false,
       contacts: [],
       rate: '',
+      image: null,
     };
   }
 
@@ -67,23 +69,54 @@ class ContactForm extends Component<ContactFormProps> {
     gender: '',
     birthDate: '',
     agreement: false,
-    contacts: [],
+    contacts: [] as string[],
     rate: '',
+    image: null,
   };
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = event.target;
-    const value = target.type === 'checkbox' ? (target as HTMLInputElement).checked : target.value;
+    const value =
+      target.type === 'checkbox' && target.name === 'agreement'
+        ? (target as HTMLInputElement).checked
+        : target.value;
+
     const name = target.name;
 
-    this.setState({
-      [name]: value,
-    });
+    if (name === 'contacts') {
+      const contacts = [...this.state.contacts];
+      if ((target as HTMLInputElement).checked) {
+        contacts.push(target.id);
+      } else {
+        const index = contacts.indexOf(target.id);
+        if (index > -1) {
+          contacts.splice(index, 1);
+        }
+      }
+      this.setState({
+        contacts: contacts,
+      });
+    } else {
+      this.setState({
+        [name]: value.toString(),
+      });
+    }
   };
 
   handleSubmit: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const { name, surname, gender, birthDate, agreement, contacts, rate } = this.state;
-    if (name && surname && gender && birthDate && agreement && contacts && rate) {
+    const { name, surname, gender, birthDate, agreement, contacts, rate, image } = this.state;
+    const missingFields: string[] = [];
+
+    if (!name) missingFields.push('name');
+    if (!surname) missingFields.push('surname');
+    if (!gender) missingFields.push('gender');
+    if (!birthDate) missingFields.push('birth date');
+    if (!agreement) missingFields.push('agreement');
+    if (!contacts || contacts.length === 0) missingFields.push('contacts');
+    if (!rate) missingFields.push('rate');
+    if (!image) missingFields.push('image');
+
+    if (missingFields.length === 0) {
       this.props.onSubmit({
         name,
         surname,
@@ -92,12 +125,14 @@ class ContactForm extends Component<ContactFormProps> {
         agreement,
         contacts,
         rate,
+        image: image || '',
       });
       this.setState({
         isSubmit: true,
       });
     } else {
-      alert('Please fill in all required fields');
+      const message = `Please fill in the following required fields:\n${missingFields.join(',\n')}`;
+      alert(message);
     }
   };
 
@@ -110,9 +145,10 @@ class ContactForm extends Component<ContactFormProps> {
       gender: '',
       birthDate: '',
       agreement: false,
-      contacts: [],
+      contacts: [] as string[],
       rate: '',
       profileImage: null,
+      image: null,
     });
   };
 
@@ -129,7 +165,11 @@ class ContactForm extends Component<ContactFormProps> {
       <div className={styles.main}>
         <h2 className={styles.title}>Contact Form</h2>
         <div className={styles.formWrapper}>
-          <FileUpload label={'Upload your profile image'} name="profileImage" />
+          <FileUpload
+            label={'Upload your profile image'}
+            name="image"
+            onChange={this.handleChange}
+          />
           <TextInput
             defaultValue={this.state.name}
             name="name"

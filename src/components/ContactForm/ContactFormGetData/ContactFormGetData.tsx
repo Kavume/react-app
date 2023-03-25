@@ -10,6 +10,7 @@ interface ContactFormGetDataProps {
     agreement?: boolean;
     contacts?: string[];
     rate?: string;
+    image?: string;
   };
 }
 
@@ -19,6 +20,7 @@ class ContactFormGetData extends Component<ContactFormGetDataProps> {
   }
 
   render() {
+    const image = this.props.formData.image?.split('\\').pop();
     return (
       <div className={styles.listWrapper}>
         <ol className={styles.list}>
@@ -27,8 +29,9 @@ class ContactFormGetData extends Component<ContactFormGetDataProps> {
           <li>Gender: {this.props.formData.gender}</li>
           <li>Birth Date: {this.props.formData.birthDate}</li>
           <li>Agreement: {this.props.formData.agreement}</li>
-          <li>Contacts: {this.props.formData.contacts}</li>
+          <li>Contacts: {this.props.formData.contacts?.join(',')}</li>
           <li>Rate: {this.props.formData.rate}</li>
+          <li>Image: {image}</li>
         </ol>
       </div>
     );
