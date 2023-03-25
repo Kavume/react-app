@@ -28,6 +28,8 @@ class TextInput extends Component<TextInputProps> {
       return '* This field must have at least 2 letters';
     } else if (!/^[a-zA-Z ]+$/.test(value)) {
       return '* This field must contain only letters';
+    } else if (!/^[A-Z]/.test(value)) {
+      return '* This field must start with a capital letter';
     } else {
       return '';
     }
@@ -42,7 +44,7 @@ class TextInput extends Component<TextInputProps> {
     if (!input) return;
 
     const value = input.value.trim();
-    if (!value || value.length < 2 || !/^[a-zA-Z ]+$/.test(value)) {
+    if (!value || value.length < 2 || !/^[a-zA-Z ]+$/.test(value) || !/^[A-Z]/.test(value)) {
       this.setState({ error: true });
     } else {
       this.setState({ error: false });
