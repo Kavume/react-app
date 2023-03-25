@@ -9,6 +9,7 @@ const props = {
   errormessageempty: '* This field is required',
   errormessagelength: '* This field must have at least 2 letters',
   errormessagenum: '* This field must contain only letters',
+  errormessagecase: '* This field must start with a capital letter',
   onChange: jest.fn(),
 };
 
@@ -58,6 +59,16 @@ describe('TextInput', () => {
     const errorMessage = getByTestId('error-message');
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage.textContent).toBe(props.errormessageempty);
+  });
+
+  it('should show error message if input value has lower case first letter', () => {
+    const { getByPlaceholderText, getByTestId } = render(<TextInput {...props} />);
+    const input = getByPlaceholderText(props.placeholder);
+    fireEvent.change(input, { target: { value: 'example' } });
+    fireEvent.blur(input);
+    const errorMessage = getByTestId('error-message');
+    expect(errorMessage).toBeInTheDocument();
+    expect(errorMessage.textContent).toBe(props.errormessagecase);
   });
 
   it('should not show error message if input value is valid', () => {
