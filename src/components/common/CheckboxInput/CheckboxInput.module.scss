@@ -1,0 +1,25 @@
+.checkboxWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 5px 0 5px 10px;
+  color: var(--main-text);
+}
+
+.checkbox {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--gray-forms);
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:checked {
+    border: 1px solid var(--blue);
+    background-color: var(--blue);
+    background-clip: content-box;
+    padding: 2px;
+  }
+}

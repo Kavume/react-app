@@ -1,0 +1,43 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  color: var(--main-text);
+  font-weight: 500;
+  margin: 1rem 0 2rem;
+}
+
+.formWrapper {
+  width: 40%;
+  height: auto;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+
+  @media screen and (max-width: 1024px) {
+    width: 70%;
+  }
+}
+
+.btnWrapper {
+  margin-top: 24px;
+  padding: 12px 0;
+}
+
+.successMessage {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  align-items: center;
+}
