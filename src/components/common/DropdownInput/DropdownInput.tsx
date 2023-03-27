@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useRef, useState } from 'react';
 import inputStyles from './../styles/Input.module.scss';
 import styles from './DropdownInput.module.scss';
 
@@ -10,64 +10,50 @@ interface DropdownInputProps {
   name: string;
 }
 
-class DropdownInput extends Component<DropdownInputProps> {
-  constructor(props: DropdownInputProps) {
-    super(props);
-    this.selectRef = React.createRef();
-  }
-  selectRef: React.RefObject<HTMLSelectElement>;
+const DropdownInput = ({ ...props }: DropdownInputProps) => {
+  const [error, setError] = useState(false);
+  const selectRef = useRef<HTMLSelectElement>(null);
 
-  validate() {
-    const value = this.selectRef.current?.value;
+  const validate = () => {
+    const value = selectRef.current?.value;
     const isValid = value && value !== '';
-    this.setState({ error: !isValid });
+    setError(!isValid);
     return isValid;
-  }
-  state = {
-    error: false,
   };
 
-  onBlurValidate() {
-    const isValid = this.validate();
-    if (!isValid) {
-      this.setState({ error: true });
-    } else {
-      this.setState({ error: false });
-    }
-  }
+  const onBlurValidate = () => {
+    const isValid = validate();
+    !isValid ? setError(true) : setError(false);
+  };
 
-  render() {
-    return (
-      <div className={inputStyles.inputWrapper}>
-        <label
-          className={`${inputStyles.label} ${this.state.error ? inputStyles.error : ''}`}
-          htmlFor={this.props.label}
-        >
-          {this.props.label}
-        </label>
-        <select
-          className={`${inputStyles.input} ${styles.select} ${
-            this.state.error ? inputStyles.error : ''
-          }`}
-          id={this.props.label}
-          name={this.props.name}
-          ref={this.selectRef}
-          onBlur={() => this.onBlurValidate()}
-          onChange={this.props.onChange}
-        >
-          <option value="">{this.props.placeholder}</option>
-          {this.props.options.map((item) => (
-            <option key={item.value} value={item.value} className={styles.option}>
-              {item.value}
-            </option>
-          ))}
-        </select>
-        {this.state.error && (
-          <p className={inputStyles.errorMessage}>* Please select one of the following options</p>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={inputStyles.inputWrapper}>
+      <label
+        className={`${inputStyles.label} ${error ? inputStyles.error : ''}`}
+        htmlFor={props.label}
+      >
+        {props.label}
+      </label>
+      <select
+        className={`${inputStyles.input} ${styles.select} ${error ? inputStyles.error : ''}`}
+        id={props.label}
+        name={props.name}
+        ref={selectRef}
+        onBlur={() => onBlurValidate()}
+        onChange={props.onChange}
+      >
+        <option value="">{props.placeholder}</option>
+        {props.options.map((item) => (
+          <option key={item.value} value={item.value} className={styles.option}>
+            {item.value}
+          </option>
+        ))}
+      </select>
+      {error && (
+        <p className={inputStyles.errorMessage}>* Please select one of the following options</p>
+      )}
+    </div>
+  );
+};
 
 export default DropdownInput;
