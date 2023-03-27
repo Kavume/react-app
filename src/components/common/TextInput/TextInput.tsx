@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import React, { useRef, useState } from 'react';
 import inputStyles from './../styles/Input.module.scss';
 
 interface TextInputProps {
@@ -9,16 +9,12 @@ interface TextInputProps {
   name: string;
 }
 
-class TextInput extends Component<TextInputProps> {
-  inputRef: RefObject<HTMLInputElement>;
+const TextInput = (props: TextInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState(false);
 
-  constructor(props: TextInputProps) {
-    super(props);
-    this.inputRef = React.createRef<HTMLInputElement>();
-  }
-
-  displayErrorMessage() {
-    const input = this.inputRef.current;
+  const displayErrorMessage = () => {
+    const input = inputRef.current;
     if (!input) return '';
 
     const value = input.value.trim();
@@ -33,49 +29,41 @@ class TextInput extends Component<TextInputProps> {
     } else {
       return '';
     }
-  }
-
-  state = {
-    error: false,
   };
 
-  validate = () => {
-    const input = this.inputRef.current;
+  const validate = () => {
+    const input = inputRef.current;
     if (!input) return;
 
     const value = input.value.trim();
-    if (!value || value.length < 2 || !/^[a-zA-Z ]+$/.test(value) || !/^[A-Z]/.test(value)) {
-      this.setState({ error: true });
-    } else {
-      this.setState({ error: false });
-    }
+    !value || value.length < 2 || !/^[a-zA-Z ]+$/.test(value) || !/^[A-Z]/.test(value)
+      ? setError(true)
+      : setError(false);
   };
 
-  render() {
-    return (
-      <div className={inputStyles.inputWrapper}>
-        <label
-          className={`${inputStyles.label} ${this.state.error ? inputStyles.error : ''}`}
-          htmlFor={this.props.label}
-        >
-          {this.props.label}
-        </label>
-        <input
-          type="text"
-          id={this.props.label}
-          className={`${inputStyles.input} ${this.state.error ? inputStyles.error : ''}`}
-          ref={this.inputRef}
-          onBlur={this.validate}
-          {...this.props}
-        />
-        {this.state.error && (
-          <p data-testid="error-message" className={inputStyles.errorMessage}>
-            {this.displayErrorMessage()}
-          </p>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={inputStyles.inputWrapper}>
+      <label
+        className={`${inputStyles.label} ${error ? inputStyles.error : ''}`}
+        htmlFor={props.label}
+      >
+        {props.label}
+      </label>
+      <input
+        type="text"
+        id={props.label}
+        className={`${inputStyles.input} ${error ? inputStyles.error : ''}`}
+        ref={inputRef}
+        onBlur={validate}
+        {...props}
+      />
+      {error && (
+        <p data-testid="error-message" className={inputStyles.errorMessage}>
+          {displayErrorMessage()}
+        </p>
+      )}
+    </div>
+  );
+};
 
 export default TextInput;

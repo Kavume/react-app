@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import React, { useRef, useState } from 'react';
 import inputStyles from './../styles/Input.module.scss';
 
 interface DateInputProps {
@@ -7,16 +7,12 @@ interface DateInputProps {
   name: string;
 }
 
-class DateInput extends Component<DateInputProps> {
-  inputRef: RefObject<HTMLInputElement>;
+const DateInput = (props: DateInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState(false);
 
-  constructor(props: DateInputProps) {
-    super(props);
-    this.inputRef = React.createRef<HTMLInputElement>();
-  }
-
-  displayErrorMessage() {
-    const input = this.inputRef.current;
+  const displayErrorMessage = () => {
+    const input = inputRef.current;
     const dateValue = input?.value;
     if (!dateValue) {
       return '* Enter your birth date';
@@ -28,18 +24,14 @@ class DateInput extends Component<DateInputProps> {
     } else {
       return '* You must be 18 years or older';
     }
-  }
-
-  state = {
-    error: false,
   };
 
-  validate = () => {
-    const input = this.inputRef.current;
+  const validate = () => {
+    const input = inputRef.current;
     const dateValue = input?.value;
 
     if (!dateValue) {
-      this.setState({ error: true });
+      setError(true);
       return;
     }
 
@@ -47,37 +39,29 @@ class DateInput extends Component<DateInputProps> {
     const minDate = new Date(dateNow.getFullYear() - 18, dateNow.getMonth(), dateNow.getDate());
     const enteredDate = new Date(dateValue);
 
-    if (enteredDate > minDate || enteredDate.getFullYear() < 1930) {
-      this.setState({ error: true });
-    } else {
-      this.setState({ error: false });
-    }
+    enteredDate > minDate || enteredDate.getFullYear() < 1930 ? setError(true) : setError(false);
   };
 
-  render() {
-    return (
-      <div className={inputStyles.inputWrapper}>
-        <label
-          className={`${inputStyles.label} ${this.state.error ? inputStyles.error : ''}`}
-          htmlFor={this.props.label}
-        >
-          {this.props.label}
-        </label>
-        <input
-          type="date"
-          id={this.props.label}
-          name={this.props.name}
-          className={`${inputStyles.input} ${this.state.error ? inputStyles.error : ''}`}
-          ref={this.inputRef}
-          onBlur={this.validate}
-          onChange={this.props.onChange}
-        />
-        {this.state.error && (
-          <p className={inputStyles.errorMessage}>{this.displayErrorMessage()}</p>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={inputStyles.inputWrapper}>
+      <label
+        className={`${inputStyles.label} ${error ? inputStyles.error : ''}`}
+        htmlFor={props.label}
+      >
+        {props.label}
+      </label>
+      <input
+        type="date"
+        id={props.label}
+        name={props.name}
+        className={`${inputStyles.input} ${error ? inputStyles.error : ''}`}
+        ref={inputRef}
+        onBlur={validate}
+        onChange={props.onChange}
+      />
+      {error && <p className={inputStyles.errorMessage}>{displayErrorMessage()}</p>}
+    </div>
+  );
+};
 
 export default DateInput;

@@ -9,7 +9,7 @@ interface RadioInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const RadioInput = ({ ...props }: RadioInputProps) => {
+const RadioInput = (props: RadioInputProps) => {
   const inputRef = useRef(null);
 
   return (

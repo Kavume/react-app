@@ -10,7 +10,7 @@ interface DropdownInputProps {
   name: string;
 }
 
-const DropdownInput = ({ ...props }: DropdownInputProps) => {
+const DropdownInput = (props: DropdownInputProps) => {
   const [error, setError] = useState(false);
   const selectRef = useRef<HTMLSelectElement>(null);
 

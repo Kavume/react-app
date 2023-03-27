@@ -8,7 +8,7 @@ interface FileUploadProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FileUpload = ({ ...props }: FileUploadProps) => {
+const FileUpload = (props: FileUploadProps) => {
   const [imageUrl, setImageUrl] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
