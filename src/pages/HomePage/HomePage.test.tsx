@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import HomePage from './HomePage';
-import { data } from '../../data';
+import { cardsData } from '../../data';
 
 describe('HomePage', () => {
   it('renders title and description for the search bar', () => {
@@ -19,9 +19,9 @@ describe('HomePage', () => {
   it('renders a card for each item in the data array', () => {
     render(<HomePage />);
     const cardElements = screen.getAllByRole('heading');
-    expect(cardElements).toHaveLength(data.length);
+    expect(cardElements).toHaveLength(cardsData.length);
 
-    data.forEach((card) => {
+    cardsData.forEach((card) => {
       expect(screen.getByText(card.title)).toBeInTheDocument();
       expect(screen.getByText(card.description)).toBeInTheDocument();
       expect(screen.getByText(card.likes)).toBeInTheDocument();

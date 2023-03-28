@@ -8,29 +8,12 @@ import { RadioInput } from '../common/RadioInput';
 import { FileUpload } from '../common/FileUpload';
 import { Button } from '../common/Button';
 import { SuccessMessage } from '../common/SuccessMessage';
-
-const dropdownInputData = [
-  { value: 'Male' },
-  { value: 'Female' },
-  { value: 'Other' },
-  { value: 'Prefer not to say' },
-];
-
-const checkboxInputConsentData = [{ value: 'I consent to my personal data' }];
-const checkboxInputContactData = [
-  { value: 'SMS' },
-  { value: 'Call' },
-  { value: 'Email' },
-  { value: 'Video chat' },
-];
-
-const radioInputRateData = [
-  { id: 'rate1', label: 'Very satisfied' },
-  { id: 'rate2', label: 'Satisfied' },
-  { id: 'rate3', label: 'Neutral' },
-  { id: 'rate4', label: 'Unsatisfied' },
-  { id: 'rate5', label: 'Very unsatisfied' },
-];
+import {
+  dropdownInputData,
+  checkboxInputConsentData,
+  checkboxInputContactData,
+  radioInputRateData,
+} from '../../data';
 
 interface ContactFormProps {
   onSubmit: (data: {

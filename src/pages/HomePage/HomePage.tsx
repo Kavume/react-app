@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './HomePage.module.scss';
 import { SearchBar } from '../../components/SearchBar';
 import { Card } from '../../components/Card';
-import { data } from '../../data';
+import { cardsData } from '../../data';
 
 const HomePage = () => {
   return (
@@ -15,7 +15,7 @@ const HomePage = () => {
         <SearchBar onChange={() => ''} />
       </div>
       <div className={styles.cardsWrapper}>
-        {data.map((card) => (
+        {cardsData.map((card) => (
           <Card
             key={card.title}
             authorInfo={card.authorInfo}
