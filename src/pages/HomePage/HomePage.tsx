@@ -2,19 +2,7 @@ import React from 'react';
 import styles from './HomePage.module.scss';
 import { SearchBar } from '../../components/SearchBar';
 import { Card } from '../../components/Card';
-import Example from '../../assets/images/example.jpeg';
-
-export const data = [
-  {
-    authorInfo: 'Will Shakespeare',
-    color: 'var(--gray)',
-    description: 'Description ipsum lorem text ipsum lorem',
-    fill: 'none',
-    image: Example,
-    likes: 0,
-    title: 'Title',
-  },
-];
+import { data } from '../../data';
 
 const HomePage = () => {
   return (
@@ -31,9 +19,9 @@ const HomePage = () => {
           <Card
             key={card.title}
             authorInfo={card.authorInfo}
-            color={card.color}
+            color={'var(--gray)'}
+            fill={'none'}
             description={card.description}
-            fill={card.fill}
             image={card.image}
             likes={card.likes}
             title={card.title}

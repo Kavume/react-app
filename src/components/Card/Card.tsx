@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Card.module.scss';
 import { LikeIcon } from './LikeIcon';
 
@@ -12,62 +12,49 @@ interface CardProps {
   color: string;
 }
 
-interface CardState {
-  imageLoaded: boolean;
-}
+const Card = (props: CardProps) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-class Card extends Component<CardProps, CardState> {
-  constructor(props: CardProps) {
-    super(props);
-    this.state = {
-      imageLoaded: false,
-    };
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     const image = new Image();
     image.onload = () => {
-      this.setState({ imageLoaded: true });
+      setImageLoaded(true);
     };
-    image.src = this.props.image;
-  }
+    image.src = props.image;
+  }, [props.image]);
 
-  componentDidUpdate(prevProps: CardProps) {
-    if (prevProps.image !== this.props.image) {
+  useEffect(() => {
+    if (imageLoaded && props.image !== '') {
       const image = new Image();
       image.onload = () => {
-        this.setState({ imageLoaded: true });
+        setImageLoaded(true);
       };
-      image.src = this.props.image;
+      image.src = props.image;
     }
-  }
+  }, [props.image, imageLoaded]);
 
-  render() {
-    const { title, description, authorInfo, likes, fill, color, image } = this.props;
-    const { imageLoaded } = this.state;
-    return (
-      <div className={styles.cardContainer}>
-        <div className={styles.imageWrapper}>
-          {imageLoaded ? (
-            <img className={styles.image} src={image} alt="card image" />
-          ) : (
-            <div data-testid="placeholder" className={styles.placeholder} />
-          )}
+  return (
+    <div className={styles.cardContainer}>
+      <div className={styles.imageWrapper}>
+        {imageLoaded ? (
+          <img className={styles.image} src={props.image} alt="card image" />
+        ) : (
+          <div data-testid="placeholder" className={styles.placeholder} />
+        )}
+      </div>
+      <div className={styles.infoWrapper}>
+        <div>
+          <p className={styles.title}>{props.title}</p>
+          <p className={styles.description}>{props.description}</p>
         </div>
-        <div className={styles.infoWrapper}>
-          <div>
-            <p className={styles.title}>{title}</p>
-            <p className={styles.description}>{description}</p>
-          </div>
-          <p className={styles.authorInfo}>by {authorInfo}</p>
-          <div className={styles.likesWrapper}>
-            <LikeIcon className={styles.icon} fill={fill} color={color} />
-            <p className={styles.likes}>{likes}</p>
-          </div>
+        <p className={styles.authorInfo}>by {props.authorInfo}</p>
+        <div className={styles.likesWrapper}>
+          <LikeIcon className={styles.icon} fill={props.fill} color={props.color} />
+          <p className={styles.likes}>{props.likes}</p>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Card;

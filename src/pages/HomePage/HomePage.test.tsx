@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HomePage, { data } from './HomePage';
+import HomePage from './HomePage';
+import { data } from '../../data';
 
 describe('HomePage', () => {
   it('renders title and description for the search bar', () => {
