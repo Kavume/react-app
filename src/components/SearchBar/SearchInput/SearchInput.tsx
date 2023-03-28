@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './SearchInput.module.scss';
 import { SearchIcon } from '../SearchIcon';
 
-interface InputProps {
+interface SearchInputProps {
   type: string;
   name?: string;
   placeholder?: string;
@@ -10,31 +10,25 @@ interface InputProps {
   value: string;
 }
 
-class SearchInput extends Component<InputProps> {
-  constructor(props: InputProps) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className={styles.main}>
-        <label className={styles.label} htmlFor={this.props.name}>
-          {this.props.name}
-        </label>
-        <div className={styles.inputWrapper}>
-          <SearchIcon fill={'none'} stroke={'var(--gray)'} className={styles.icon} />
-          <input
-            type={this.props.type}
-            name={this.props.name}
-            placeholder={this.props.placeholder}
-            onChange={this.props.onChange}
-            value={this.props.value}
-            className={styles.input}
-          />
-        </div>
+const SearchInput = (props: SearchInputProps) => {
+  return (
+    <div className={styles.main}>
+      <label className={styles.label} htmlFor={props.name}>
+        {props.name}
+      </label>
+      <div className={styles.inputWrapper}>
+        <SearchIcon fill={'none'} stroke={'var(--gray)'} className={styles.icon} />
+        <input
+          type={props.type}
+          name={props.name}
+          placeholder={props.placeholder}
+          onChange={props.onChange}
+          value={props.value}
+          className={styles.input}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default SearchInput;
