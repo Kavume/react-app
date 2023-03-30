@@ -16,7 +16,14 @@ const CheckboxInput = forwardRef<HTMLInputElement, CheckboxInputProps>((props, r
       </p>
       {props.checkboxes.map((item) => (
         <div className={styles.checkboxWrapper} key={item.value}>
-          <input className={styles.checkbox} type="checkbox" id={item.value} ref={ref} {...props} />
+          <input
+            className={styles.checkbox}
+            type="checkbox"
+            id={item.value}
+            ref={ref}
+            value={item.value}
+            {...props}
+          />
           <label htmlFor={item.value}>{item.value}</label>
         </div>
       ))}

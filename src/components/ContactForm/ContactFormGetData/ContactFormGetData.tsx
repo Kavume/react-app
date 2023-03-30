@@ -23,7 +23,7 @@ const ContactFormGetData = (props: ContactFormGetDataProps) => {
         <li>Surname: {props.formData.lastName}</li>
         <li>Gender: {props.formData.gender}</li>
         <li>Birth Date: {props.formData.birthDate}</li>
-        <li>Agreement: {props.formData.agreement}</li>
+        <li>Agreement: {props.formData.agreement ? 'Yes' : 'No'}</li>
         <li>Contacts: {props.formData.contacts?.join(',')}</li>
         <li>Rate: {props.formData.rate}</li>
         <li>Image: {image}</li>
