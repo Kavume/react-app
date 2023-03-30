@@ -1,20 +1,19 @@
-import React, { useRef } from 'react';
+import React, { forwardRef } from 'react';
 import inputStyles from './../styles/Input.module.scss';
 import styles from './RadioInput.module.scss';
 
 interface RadioInputProps {
-  name: string;
   radioInputs: { id: string; label: string }[];
   title: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 }
 
-const RadioInput = (props: RadioInputProps) => {
-  const inputRef = useRef(null);
-
+const RadioInput = forwardRef<HTMLInputElement, RadioInputProps>((props, ref) => {
   return (
     <div className={styles.componentContainer}>
-      <p className={inputStyles.label}>{props.title}</p>
+      <p className={`${inputStyles.label} ${props.error ? inputStyles.error : ''}`}>
+        {props.title}
+      </p>
       <div className={inputStyles.inputWrapper}>
         {props.radioInputs.map((item) => (
           <div className={styles.radioItemWrapper} key={item.id}>
@@ -22,10 +21,9 @@ const RadioInput = (props: RadioInputProps) => {
               className={styles.radio}
               type="radio"
               id={item.id}
-              name={props.name}
               value={item.label}
-              ref={inputRef}
-              onChange={props.onChange}
+              ref={ref}
+              {...props}
             />
             <label className={styles.label} htmlFor={item.id}>
               {item.label}
@@ -33,8 +31,9 @@ const RadioInput = (props: RadioInputProps) => {
           </div>
         ))}
       </div>
+      {props.error && <p className={inputStyles.errorMessage}>{props.error}</p>}
     </div>
   );
-};
+});
 
 export default RadioInput;

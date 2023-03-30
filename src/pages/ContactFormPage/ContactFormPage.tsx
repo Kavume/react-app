@@ -5,9 +5,9 @@ import styles from './ContactFormPage.module.scss';
 
 const ContactFormPage = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [currentData, setCurrentData] = useState<{ name?: string }[]>([]);
+  const [currentData, setCurrentData] = useState<{ firstName?: string }[]>([]);
 
-  const handleSubmit = (data: { name: string }) => {
+  const handleSubmit = (data: { firstName: string }) => {
     setIsSubmitted(true);
     setCurrentData([...currentData, data]);
   };
@@ -16,10 +16,9 @@ const ContactFormPage = () => {
     <div className={styles.contentWrapper}>
       <ContactForm onSubmit={handleSubmit} onReset={() => setIsSubmitted(false)} />
       <div className={styles.listsWrapper}>
-        {!isSubmitted &&
-          currentData.map((data, index) => (
-            <ContactFormGetData key={`${data.name}${index}`} formData={data} />
-          ))}
+        {currentData.map((data, index) => (
+          <ContactFormGetData key={`${data.firstName}${index}`} formData={data} />
+        ))}
       </div>
     </div>
   );

@@ -12,6 +12,13 @@
   margin: 1rem 0 2rem;
 }
 
+.subtitle {
+  color: var(--blue);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
 .formWrapper {
   width: 40%;
   height: auto;
@@ -40,4 +47,10 @@
   flex-direction: column;
   gap: 2.2rem;
   align-items: center;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-top: 10px;
 }

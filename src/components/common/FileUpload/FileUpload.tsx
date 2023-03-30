@@ -1,16 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import styles from './FileUpload.module.scss';
-import { Button } from '../Button';
+import inputStyles from './../styles/Input.module.scss';
 
 interface FileUploadProps {
   label: string;
-  name: string;
+  error?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FileUpload = (props: FileUploadProps) => {
+const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>((props, ref) => {
   const [imageUrl, setImageUrl] = useState('');
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
@@ -31,22 +30,23 @@ const FileUpload = (props: FileUploadProps) => {
         <div className={styles.imageMock}></div>
       )}
       <div className={styles.inputWrapper}>
-        <label className={styles.label} htmlFor="file-input">
-          {props.label}
-        </label>
+        <div className={inputStyles.input}>
+          <label className={styles.label} htmlFor="file-input">
+            {props.label}
+          </label>
+        </div>
         <input
+          {...props}
           className={styles.file}
           type="file"
           accept="image/*"
-          onChange={handleFileChange}
           id="file-input"
-          ref={inputRef}
-          name={props.name}
+          ref={ref}
+          onChange={handleFileChange}
         />
-        <Button text={'Upload'} isPrimary={false} onClick={() => inputRef.current?.click()} />
       </div>
     </div>
   );
-};
+});
 
 export default FileUpload;

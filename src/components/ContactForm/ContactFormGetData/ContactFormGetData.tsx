@@ -3,8 +3,8 @@ import styles from './ContactFormGetData.module.scss';
 
 interface ContactFormGetDataProps {
   formData: {
-    name?: string;
-    surname?: string;
+    firstName?: string;
+    lastName?: string;
     gender?: string;
     birthDate?: string;
     agreement?: boolean;
@@ -19,8 +19,8 @@ const ContactFormGetData = (props: ContactFormGetDataProps) => {
   return (
     <div className={styles.listWrapper}>
       <ol className={styles.list}>
-        <li>Name: {props.formData.name}</li>
-        <li>Surname: {props.formData.surname}</li>
+        <li>Name: {props.formData.firstName}</li>
+        <li>Surname: {props.formData.lastName}</li>
         <li>Gender: {props.formData.gender}</li>
         <li>Birth Date: {props.formData.birthDate}</li>
         <li>Agreement: {props.formData.agreement}</li>

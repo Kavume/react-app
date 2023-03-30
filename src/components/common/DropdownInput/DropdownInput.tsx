@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 import inputStyles from './../styles/Input.module.scss';
 import styles from './DropdownInput.module.scss';
 
@@ -6,41 +6,23 @@ interface DropdownInputProps {
   label: string;
   placeholder: string;
   options: { value: string }[];
-  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  name: string;
+  error?: string;
 }
 
-const DropdownInput = (props: DropdownInputProps) => {
-  const [error, setError] = useState(false);
-  const selectRef = useRef<HTMLSelectElement>(null);
-
-  const validate = () => {
-    const value = selectRef.current?.value;
-    const isValid = value && value !== '';
-    setError(!isValid);
-    return isValid;
-  };
-
-  const onBlurValidate = () => {
-    const isValid = validate();
-    !isValid ? setError(true) : setError(false);
-  };
-
+const DropdownInput = forwardRef<HTMLSelectElement, DropdownInputProps>((props, ref) => {
   return (
     <div className={inputStyles.inputWrapper}>
       <label
-        className={`${inputStyles.label} ${error ? inputStyles.error : ''}`}
+        className={`${inputStyles.label} ${props.error ? inputStyles.error : ''}`}
         htmlFor={props.label}
       >
         {props.label}
       </label>
       <select
-        className={`${inputStyles.input} ${styles.select} ${error ? inputStyles.error : ''}`}
+        className={`${inputStyles.input} ${styles.select} ${props.error ? inputStyles.error : ''}`}
         id={props.label}
-        name={props.name}
-        ref={selectRef}
-        onBlur={() => onBlurValidate()}
-        onChange={props.onChange}
+        ref={ref}
+        {...props}
       >
         <option value="">{props.placeholder}</option>
         {props.options.map((item) => (
@@ -49,11 +31,9 @@ const DropdownInput = (props: DropdownInputProps) => {
           </option>
         ))}
       </select>
-      {error && (
-        <p className={inputStyles.errorMessage}>* Please select one of the following options</p>
-      )}
+      {props.error && <p className={inputStyles.errorMessage}>{props.error}</p>}
     </div>
   );
-};
+});
 
 export default DropdownInput;
