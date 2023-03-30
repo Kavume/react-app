@@ -11,11 +11,11 @@ interface ContactFormGetDataProps {
     contacts?: string[];
     rate?: string;
     image?: string;
+    fileName?: string;
   };
 }
 
 const ContactFormGetData = (props: ContactFormGetDataProps) => {
-  const image = props.formData.image?.split('\\').pop();
   return (
     <div className={styles.listWrapper}>
       <ol className={styles.list}>
@@ -26,7 +26,7 @@ const ContactFormGetData = (props: ContactFormGetDataProps) => {
         <li>Agreement: {props.formData.agreement ? 'Yes' : 'No'}</li>
         <li>Contacts: {props.formData.contacts?.join(',')}</li>
         <li>Rate: {props.formData.rate}</li>
-        <li>Image: {image}</li>
+        <li>Image: {props.formData.fileName}</li>
       </ol>
     </div>
   );

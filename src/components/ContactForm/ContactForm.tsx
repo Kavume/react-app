@@ -25,7 +25,7 @@ interface ContactFormProps {
     agreement: boolean;
     contacts: string[];
     rate: string;
-    image: string;
+    image: File[];
   }) => void;
   onReset: () => void;
 }
@@ -38,7 +38,7 @@ interface FormData {
   agreement: boolean;
   contacts: [];
   rate: string;
-  image: string;
+  image: File[];
 }
 
 const ContactForm = (props: ContactFormProps) => {
@@ -52,7 +52,9 @@ const ContactForm = (props: ContactFormProps) => {
   } = useForm<FormData>();
 
   const onsubmit = (data: FormData) => {
-    props.onSubmit(data as never);
+    const fileName = data.image[0].name;
+    const modifiedData = { ...data, fileName };
+    props.onSubmit(modifiedData as never);
     setIsSubmit(true);
   };
 
@@ -70,6 +72,16 @@ const ContactForm = (props: ContactFormProps) => {
     <div className={styles.main}>
       <h2 className={styles.title}>Contact Form</h2>
       <form className={styles.formWrapper} onSubmit={handleSubmit(onsubmit)}>
+        <FileUpload
+          label={'Upload your profile image'}
+          {...register('image', {
+            required: {
+              value: true,
+              message: '* This field is required',
+            },
+          })}
+          error={errors?.image?.message}
+        />
         <TextInput
           label={'Firstname'}
           placeholder={'Enter your firstname'}
@@ -154,7 +166,6 @@ const ContactForm = (props: ContactFormProps) => {
           })}
           error={errors.rate?.message}
         />
-
         <div className={styles.btnWrapper}>
           <Button text={'Submit'} isPrimary={false} type={'submit'} />
         </div>

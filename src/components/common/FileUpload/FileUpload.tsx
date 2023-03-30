@@ -12,12 +12,11 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>((props, ref) =>
   const [imageUrl, setImageUrl] = useState('');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
+    const file = event.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImageUrl(imageUrl);
-      props.onChange(event);
+      setImageUrl(URL.createObjectURL(file));
     }
+    props.onChange(event);
   };
 
   return (
@@ -30,7 +29,7 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>((props, ref) =>
         <div className={styles.imageMock}></div>
       )}
       <div className={styles.inputWrapper}>
-        <div className={inputStyles.input}>
+        <div className={`${inputStyles.input} ${props.error ? inputStyles.error : ''}`}>
           <label className={styles.label} htmlFor="file-input">
             {props.label}
           </label>
@@ -45,6 +44,7 @@ const FileUpload = forwardRef<HTMLInputElement, FileUploadProps>((props, ref) =>
           onChange={handleFileChange}
         />
       </div>
+      {props.error && <p className={inputStyles.errorMessage}>{props.error}</p>}
     </div>
   );
 });
