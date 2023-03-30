@@ -16,9 +16,10 @@ const ContactFormPage = () => {
     <div className={styles.contentWrapper}>
       <ContactForm onSubmit={handleSubmit} onReset={() => setIsSubmitted(false)} />
       <div className={styles.listsWrapper}>
-        {currentData.map((data, index) => (
-          <ContactFormGetData key={`${data.firstName}${index}`} formData={data} />
-        ))}
+        {!isSubmitted &&
+          currentData.map((data, index) => (
+            <ContactFormGetData key={`${data.firstName}${index}`} formData={data} />
+          ))}
       </div>
     </div>
   );

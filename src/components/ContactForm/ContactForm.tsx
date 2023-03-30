@@ -61,6 +61,7 @@ const ContactForm = (props: ContactFormProps) => {
   const handleReset = () => {
     setIsSubmit(false);
     reset();
+    props.onReset();
   };
 
   return isSubmit ? (
@@ -94,9 +95,11 @@ const ContactForm = (props: ContactFormProps) => {
               value: 2,
               message: '* This field must have at least 2 letters',
             },
-            pattern: {
-              value: /^[a-zA-Z ]+$/,
-              message: '* This field must contain only letters',
+            validate: {
+              onlyLetters: (value) =>
+                /^[a-zA-Z ]+$/.test(value) || '* This field must contain only letters',
+              capitalFirstLetter: (value) =>
+                /^[A-Z]/.test(value) || '* This field must start with a capital letter',
             },
           })}
           error={errors?.firstName?.message}
@@ -113,9 +116,11 @@ const ContactForm = (props: ContactFormProps) => {
               value: 2,
               message: '* This field must have at least 2 letters',
             },
-            pattern: {
-              value: /^[a-zA-Z ]+$/,
-              message: '* This field must contain only letters',
+            validate: {
+              onlyLetters: (value) =>
+                /^[a-zA-Z ]+$/.test(value) || '* This field must contain only letters',
+              capitalFirstLetter: (value) =>
+                /^[A-Z]/.test(value) || '* This field must start with a capital letter',
             },
           })}
           error={errors?.lastName?.message}
@@ -136,6 +141,12 @@ const ContactForm = (props: ContactFormProps) => {
           label={'Birth date'}
           {...register('birthDate', {
             required: { value: true, message: '* This field is required' },
+            validate: {
+              correctData: (value) =>
+                Date.parse(value) < Date.now() || '* Please enter the correct data',
+              correctData2: (value) =>
+                new Date(value).getFullYear() > 1930 || '* Please enter the correct data',
+            },
           })}
           error={errors?.birthDate?.message}
         />
