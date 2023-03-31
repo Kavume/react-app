@@ -17,4 +17,10 @@ describe('FileUpload', () => {
     render(<FileUpload {...props} />);
     expect(screen.getByLabelText('Choose an image')).toBeInTheDocument();
   });
+
+  it('should display an error message when an error prop is passed', () => {
+    const { getByText } = render(<FileUpload {...props} error="require" />);
+    const errorMessage = getByText('require');
+    expect(errorMessage).toBeInTheDocument();
+  });
 });

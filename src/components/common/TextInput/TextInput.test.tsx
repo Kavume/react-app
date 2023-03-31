@@ -31,53 +31,10 @@ describe('TextInput', () => {
     expect(input.value).toBe('Example Input');
   });
 
-  it('should show error message if input value contains a number', () => {
-    const { getByPlaceholderText, getByTestId } = render(<TextInput {...props} />);
-    const input = getByPlaceholderText(props.placeholder);
-    fireEvent.change(input, { target: { value: 'Example3' } });
-    fireEvent.blur(input);
-    const errorMessage = getByTestId('error-message');
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errormessagenum);
-  });
-
-  it('should show error message if input value has length less 2', () => {
-    const { getByPlaceholderText, getByTestId } = render(<TextInput {...props} />);
-    const input = getByPlaceholderText(props.placeholder);
-    fireEvent.change(input, { target: { value: 'a' } });
-    fireEvent.blur(input);
-    const errorMessage = getByTestId('error-message');
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errormessagelength);
-  });
-
-  it('should show error message if input value is empty', () => {
-    const { getByPlaceholderText, getByTestId } = render(<TextInput {...props} />);
-    const input = getByPlaceholderText(props.placeholder);
-    fireEvent.change(input, { target: { value: '' } });
-    fireEvent.blur(input);
-    const errorMessage = getByTestId('error-message');
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errormessageempty);
-  });
-
-  it('should show error message if input value has lower case first letter', () => {
-    const { getByPlaceholderText, getByTestId } = render(<TextInput {...props} />);
-    const input = getByPlaceholderText(props.placeholder);
-    fireEvent.change(input, { target: { value: 'example' } });
-    fireEvent.blur(input);
-    const errorMessage = getByTestId('error-message');
-    expect(errorMessage).toBeInTheDocument();
-    expect(errorMessage.textContent).toBe(props.errormessagecase);
-  });
-
-  it('should not show error message if input value is valid', () => {
-    const { getByPlaceholderText, queryByText } = render(<TextInput {...props} />);
-    const input = getByPlaceholderText(props.placeholder);
-    fireEvent.change(input, { target: { value: 'Example Input' } });
-    fireEvent.blur(input);
-    expect(
-      queryByText(props.errormessagenum || props.errormessagelength || props.errormessageempty)
-    ).toBeNull();
+  it('should display the error message when an error prop is passed', () => {
+    const { container, getByText } = render(<TextInput {...props} error="Example error" />);
+    const error = getByText('Example error');
+    expect(error).toBeInTheDocument();
+    expect(container.querySelector('.error')).toBeInTheDocument();
   });
 });

@@ -14,7 +14,7 @@ const HomePage = () => {
         </div>
         <SearchBar onChange={() => ''} />
       </div>
-      <div className={styles.cardsWrapper}>
+      <div className={styles.cardsWrapper} data-testid="card-container">
         {cardsData.map((card) => (
           <Card
             key={card.title}

@@ -55,4 +55,11 @@ describe('RadioInput', () => {
     expect(radio2).not.toBeChecked();
     expect(radio3).toBeChecked();
   });
+
+  it('should display the error message when an error prop is passed', () => {
+    const { container, getByText } = render(<RadioInput {...props} error="Example error" />);
+    const error = getByText('Example error');
+    expect(error).toBeInTheDocument();
+    expect(container.querySelector('.error')).toBeInTheDocument();
+  });
 });

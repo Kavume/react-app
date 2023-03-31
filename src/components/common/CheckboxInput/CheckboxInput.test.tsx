@@ -30,4 +30,18 @@ describe('CheckboxInput', () => {
       expect(checkbox.name).toBe(props.name);
     });
   });
+
+  it('should call the onChange callback when a checkbox is clicked', () => {
+    const { container } = render(<CheckboxInput {...props} />);
+    const checkboxes = container.querySelectorAll<HTMLInputElement>('.checkbox');
+    fireEvent.click(checkboxes[0]);
+    expect(props.onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('should display the error message when an error prop is passed', () => {
+    const { container, getByText } = render(<CheckboxInput {...props} error="Example error" />);
+    const error = getByText('Example error');
+    expect(error).toBeInTheDocument();
+    expect(container.querySelector('.error')).toBeInTheDocument();
+  });
 });

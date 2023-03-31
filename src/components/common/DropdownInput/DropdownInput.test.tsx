@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import DropdownInput from './DropdownInput';
-import { act } from 'react-dom/test-utils';
 
 const props = {
   label: 'Example label',
@@ -43,23 +42,10 @@ describe('DropdownInput', () => {
     expect(select.name).toBe('Example name');
   });
 
-  it('should render an error message when the user does not select an option', () => {
-    render(<DropdownInput {...props} />);
-    const select = screen.getByLabelText('Example label') as HTMLSelectElement;
-    fireEvent.blur(select);
-    const errorMessage = screen.getByText('* Please select one of the following options');
-    expect(errorMessage).toBeInTheDocument();
-  });
-
-  it('should not render an error message when the user selects an option', () => {
-    render(<DropdownInput {...props} />);
-    const select = screen.getByLabelText('Example label') as HTMLSelectElement;
-    select.focus();
-    select.value = 'value 1';
-    act(() => {
-      select.blur();
-    });
-    const errorMessage = screen.queryByText('* Please select one of the following options');
-    expect(errorMessage).not.toBeInTheDocument();
+  it('should display the error message when an error prop is passed', () => {
+    const { container, getByText } = render(<DropdownInput {...props} error="Example error" />);
+    const error = getByText('Example error');
+    expect(error).toBeInTheDocument();
+    expect(container.querySelector('.error')).toBeInTheDocument();
   });
 });
