@@ -35,6 +35,11 @@
   gap: 1rem;
 }
 
+.title, .description {
+  height: 48px;
+  overflow-y: scroll;
+}
+
 .title {
   font-size: 1.2rem;
   font-weight: 500;
@@ -50,8 +55,6 @@
   line-height: 1.2rem;
   color: var(--main-text);
   margin-top: 4px;
-  height: 48px;
-  overflow-y: scroll;
 }
 
 .authorInfo, .likes {

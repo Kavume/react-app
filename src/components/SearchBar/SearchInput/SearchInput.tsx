@@ -7,6 +7,7 @@ interface SearchInputProps {
   name?: string;
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   value: string;
 }
 
@@ -23,6 +24,7 @@ const SearchInput = (props: SearchInputProps) => {
           name={props.name}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          onKeyDown={props.onKeyDown}
           value={props.value}
           className={styles.input}
         />

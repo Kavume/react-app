@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import SearchBar from './SearchBar';
 import userEvent from '@testing-library/user-event';
 
@@ -15,7 +15,7 @@ describe('SearchBar', () => {
     userEvent.type(searchInput, inputValue);
     expect(searchInput).toHaveValue(inputValue);
 
-    expect(onChangeMock).toHaveBeenCalledTimes(inputValue.length * 2);
+    expect(onChangeMock).toHaveBeenCalledTimes(inputValue.length);
     expect(onChangeMock).toHaveBeenCalledWith(inputValue);
   });
 
@@ -37,5 +37,25 @@ describe('SearchBar', () => {
     userEvent.type(searchInput, inputValue);
 
     expect(localStorage.getItem('searchData')).toBe(`saved data${inputValue}`);
+  });
+
+  it('should call onKeyDown when Enter key is pressed', () => {
+    const mockOnKeyDown = jest.fn();
+    const { getByRole } = render(<input onKeyDown={mockOnKeyDown} />);
+
+    const input = getByRole('textbox');
+    fireEvent.keyDown(input, { key: 'Enter' });
+
+    expect(mockOnKeyDown).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call onKeyDown when a key other than Enter is pressed', () => {
+    const mockOnKeyDown = jest.fn();
+    render(<SearchBar onKeyDown={mockOnKeyDown} />);
+
+    const searchInput = screen.getByPlaceholderText('Search');
+    fireEvent.keyDown(searchInput, { key: 'Tab' });
+
+    expect(mockOnKeyDown).toHaveBeenCalledTimes(0);
   });
 });

@@ -19,14 +19,49 @@ interface Card {
 
 const HomePage = () => {
   const [cards, setCards] = useState<Card[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    fetch('https://api.unsplash.com/photos/?client_id=p5CxTsOwAVeWUyHi4DkvNtEtsfyUTRVzgEjZLOLJepI')
+  const searchFetchedData = (searchData: string) => {
+    setIsLoading(true);
+    fetch(
+      `https://api.unsplash.com/search/photos?query=${searchData}&client_id=p5CxTsOwAVeWUyHi4DkvNtEtsfyUTRVzgEjZLOLJepI`
+    )
       .then((res) => res.json())
       .then((data) => {
+        const cards = data.results.map((card: Card) => ({
+          id: card.id,
+          alt_description: card.alt_description,
+          user: {
+            first_name: card.user.first_name,
+            last_name: card.user.last_name,
+            username: card.user.username,
+          },
+          likes: card.likes,
+          urls: {
+            small: card.urls.small,
+          },
+        }));
+        setIsLoading(false);
+        setCards(cards);
+      });
+  };
+
+  const getFetchUserData = async () => {
+    setIsLoading(true);
+    await fetch(
+      'https://api.unsplash.com/photos/?client_id=p5CxTsOwAVeWUyHi4DkvNtEtsfyUTRVzgEjZLOLJepI'
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setIsLoading(false);
         setCards(data);
       });
+  };
+
+  useEffect(() => {
+    getFetchUserData();
   }, []);
+
   return (
     <div className={styles.main} data-testid={'home-page'}>
       <div className={styles.searchBarWrapper}>
@@ -34,8 +69,13 @@ const HomePage = () => {
           <h2 className={styles.title}>Site Search</h2>
           <p className={styles.text}>What are we looking for today?</p>
         </div>
-        <SearchBar onChange={() => ''} />
+        <SearchBar onKeyDown={(searchData) => searchFetchedData(searchData)} />
       </div>
+      {isLoading ? (
+        <p className={styles.load}>Progressing...</p>
+      ) : (
+        <p className={styles.load}>Successfully loaded</p>
+      )}
       <div className={styles.cardsWrapper} data-testid="card-container">
         {cards &&
           cards.map((card) => (

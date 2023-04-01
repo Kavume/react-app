@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styles from './SearchBar.module.scss';
 import { SearchInput } from './SearchInput';
 
 interface SearchBarProps {
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
+  onKeyDown?: (value: string) => void;
 }
 
 const SearchBar = (props: SearchBarProps) => {
@@ -13,14 +14,14 @@ const SearchBar = (props: SearchBarProps) => {
     const searchData = event.currentTarget.value;
     setSearchData(searchData);
     localStorage.setItem('searchData', searchData);
-    props.onChange(searchData);
+    props.onChange && props.onChange(searchData);
   };
 
-  useEffect(() => {
-    if (searchData) {
-      props.onChange(searchData);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      props.onKeyDown && props.onKeyDown(event.currentTarget.value);
     }
-  }, [searchData, props]);
+  };
 
   return (
     <div className={styles.searchBarWrapper}>
@@ -29,6 +30,7 @@ const SearchBar = (props: SearchBarProps) => {
         placeholder={'Search'}
         onChange={handleChange}
         value={searchData}
+        onKeyDown={handleKeyDown}
       />
     </div>
   );
