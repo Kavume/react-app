@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './HomePage.module.scss';
 import { SearchBar } from '../../components/SearchBar';
 import { Card } from '../../components/Card';
+import { Loading } from '../../components/common/Loading';
 
 interface Card {
   id: string;
@@ -71,11 +72,7 @@ const HomePage = () => {
         </div>
         <SearchBar onKeyDown={(searchData) => searchFetchedData(searchData)} />
       </div>
-      {isLoading ? (
-        <p className={styles.load}>Progressing...</p>
-      ) : (
-        <p className={styles.load}>Successfully loaded</p>
-      )}
+      <Loading isLoading={isLoading} />
       <div className={styles.cardsWrapper} data-testid="card-container">
         {cards &&
           cards.map((card) => (
