@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Card from './Card';
 
 const props = {
@@ -10,6 +10,8 @@ const props = {
   image: 'https://example.com/new-image.jpg',
   fill: 'red',
   color: 'blue',
+  downloadLink: 'http//:kkdkdkdkdkd',
+  bio: 'Example bio',
 };
 
 describe('Card', () => {
@@ -27,8 +29,14 @@ describe('Card', () => {
     expect(likesElement).toBeInTheDocument();
   });
 
-  it('renders a placeholder if image is not loaded yet', () => {
+  it('should render a button for modal', () => {
     render(<Card {...props} image="invalid-image-url" />);
     expect(screen.getByTestId('placeholder')).toBeInTheDocument();
+  });
+
+  it('should render a modal when the button is clicked', () => {
+    const { getByRole } = render(<Card {...props} />);
+    const button = getByRole('button', { name: 'Show more' });
+    fireEvent.click(button);
   });
 });

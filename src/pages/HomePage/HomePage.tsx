@@ -11,11 +11,15 @@ interface Card {
     username: string;
     first_name: string;
     last_name: string;
+    instagram_username: string | null | undefined;
   };
   urls: {
     small: string;
   };
   likes: number;
+  links: {
+    download: string;
+  };
 }
 
 const HomePage = () => {
@@ -36,10 +40,14 @@ const HomePage = () => {
             first_name: card.user.first_name,
             last_name: card.user.last_name,
             username: card.user.username,
+            bio: card.user.instagram_username,
           },
           likes: card.likes,
           urls: {
             small: card.urls.small,
+          },
+          links: {
+            download: card.links.download,
           },
         }));
         setIsLoading(false);
@@ -58,11 +66,9 @@ const HomePage = () => {
         setCards(data);
       });
   };
-
   useEffect(() => {
     getFetchUserData();
   }, []);
-
   return (
     <div className={styles.main} data-testid={'home-page'}>
       <div className={styles.searchBarWrapper}>
@@ -81,10 +87,16 @@ const HomePage = () => {
               description={card.alt_description}
               title={`${card.user.first_name} ${card.user.last_name}`}
               authorInfo={card.user.username}
+              bio={
+                card.user.instagram_username === null || card.user.instagram_username === undefined
+                  ? "We don't have any information yet"
+                  : card.user.instagram_username
+              }
               likes={card.likes}
               image={card.urls.small}
               fill={'none'}
               color={'var(--gray)'}
+              downloadLink={card.links.download}
             />
           ))}
       </div>
