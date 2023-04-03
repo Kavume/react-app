@@ -6,7 +6,7 @@ describe('HomePage', () => {
   it('should renders title and description for the search bar', () => {
     render(<HomePage />);
     expect(screen.getByText('Site Search')).toBeInTheDocument();
-    expect(screen.getByText('What are we looking for today?')).toBeInTheDocument();
+    expect(screen.getByText('To begin searching, please press the enter key')).toBeInTheDocument();
   });
 
   it('should renders the search bar', () => {
