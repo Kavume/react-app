@@ -74,9 +74,14 @@ const HomePage = () => {
       <div className={styles.searchBarWrapper}>
         <div className={styles.textWrapper}>
           <h2 className={styles.title}>Site Search</h2>
-          <p className={styles.text}>What are we looking for today?</p>
+          <p className={styles.text}>To begin searching, please press the enter key</p>
         </div>
-        <SearchBar onKeyDown={(searchData) => searchFetchedData(searchData)} />
+        <SearchBar
+          onKeyDown={(searchData) => {
+            searchFetchedData(searchData);
+            if (searchData === '') getFetchUserData();
+          }}
+        />
       </div>
       <Loading isLoading={isLoading} />
       <div className={styles.cardsWrapper} data-testid="card-container">

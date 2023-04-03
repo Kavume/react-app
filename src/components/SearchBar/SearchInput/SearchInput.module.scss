@@ -33,6 +33,7 @@
   color: var(--main-text);
   min-width: 300px;
   font-size: 0.9rem;
+  position: relative;
 
   &:focus {
     border: 1px solid var(--blue);
@@ -41,4 +42,8 @@
   &::-webkit-search-cancel-button {
     cursor: pointer;
   }
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
 }
