@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ContactForm.module.scss';
 import { TextInput } from '../common/TextInput';
 import { DateInput } from '../common/DateInput';
@@ -15,20 +15,8 @@ import {
 } from '../../data';
 import { useForm } from 'react-hook-form';
 import { SuccessMessage } from '../common/SuccessMessage';
-
-interface ContactFormProps {
-  onSubmit: (data: {
-    firstName: string;
-    lastName: string;
-    gender: string;
-    birthDate: string;
-    agreement: boolean;
-    contacts: string[];
-    rate: string;
-    image: File[];
-  }) => void;
-  onReset: () => void;
-}
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { createContactFormCard, resetForm } from '../../store/slices/ContactFormSlice';
 
 interface FormData {
   firstName: string;
@@ -41,8 +29,9 @@ interface FormData {
   image: File[];
 }
 
-const ContactForm = (props: ContactFormProps) => {
-  const [isSubmit, setIsSubmit] = useState(false);
+const ContactForm = () => {
+  const isSubmit = useAppSelector((state) => state.cardsContactForm.isSubmit);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -52,16 +41,21 @@ const ContactForm = (props: ContactFormProps) => {
   } = useForm<FormData>();
 
   const onsubmit = (data: FormData) => {
-    const fileName = data.image[0].name;
-    const modifiedData = { ...data, fileName };
-    props.onSubmit(modifiedData as never);
-    setIsSubmit(true);
+    const { image, ...fields } = data;
+    const fileName = image[0].name;
+    dispatch(
+      createContactFormCard({
+        cards: {
+          fileName,
+          ...fields,
+        },
+      })
+    );
   };
 
   const handleReset = () => {
-    setIsSubmit(false);
+    dispatch(resetForm());
     reset();
-    props.onReset();
   };
 
   return isSubmit ? (
