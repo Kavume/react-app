@@ -1,6 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import styles from './SearchBar.module.scss';
 import { SearchInput } from './SearchInput';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { getSearchData } from '../../store/slices/SearchBarSlice';
 
 interface SearchBarProps {
   onChange?: (value: string) => void;
@@ -8,12 +10,11 @@ interface SearchBarProps {
 }
 
 const SearchBar = (props: SearchBarProps) => {
-  const [searchData, setSearchData] = useState(() => localStorage.getItem('searchData') || '');
+  const dispatch = useAppDispatch();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchData = event.currentTarget.value;
-    setSearchData(searchData);
-    localStorage.setItem('searchData', searchData);
+    dispatch(getSearchData(searchData));
     props.onChange && props.onChange(searchData);
   };
 
@@ -23,13 +24,15 @@ const SearchBar = (props: SearchBarProps) => {
     }
   };
 
+  const enteredValue = useAppSelector((state) => state.search.value);
+
   return (
     <div className={styles.searchBarWrapper}>
       <SearchInput
         type={'search'}
         placeholder={'Search'}
         onChange={handleChange}
-        value={searchData}
+        value={enteredValue}
         onKeyDown={handleKeyDown}
       />
     </div>
