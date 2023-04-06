@@ -1,0 +1,25 @@
+.header {
+  padding: 24px 32px;
+  background-color: var(--light-gray);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+
+  .link, .active {
+    text-decoration: none;
+    color: var(--main-text);
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    &:hover {
+      color: var(--blue);
+    }
+  }
+
+  .active {
+    color: var(--blue);
+  }
+
+}
