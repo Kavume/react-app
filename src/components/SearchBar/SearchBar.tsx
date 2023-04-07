@@ -3,28 +3,26 @@ import styles from './SearchBar.module.scss';
 import { SearchInput } from './SearchInput';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getSearchData } from '../../store/slices/SearchBarSlice';
+import { getFetchCards, getSearchFetchCards } from '../../store/slices/CardsHomePageSlice';
 
-interface SearchBarProps {
-  onChange?: (value: string) => void;
-  onKeyDown?: (value: string) => void;
-}
-
-const SearchBar = (props: SearchBarProps) => {
+const SearchBar = () => {
   const dispatch = useAppDispatch();
+  const searchData = useAppSelector((state) => state.search.value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const searchData = event.currentTarget.value;
     dispatch(getSearchData(searchData));
-    props.onChange && props.onChange(searchData);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      props.onKeyDown && props.onKeyDown(event.currentTarget.value);
+      if (searchData === '') {
+        dispatch(getFetchCards());
+      } else {
+        dispatch(getSearchFetchCards(searchData));
+      }
     }
   };
-
-  const enteredValue = useAppSelector((state) => state.search.value);
 
   return (
     <div className={styles.searchBarWrapper}>
@@ -32,7 +30,7 @@ const SearchBar = (props: SearchBarProps) => {
         type={'search'}
         placeholder={'Search'}
         onChange={handleChange}
-        value={enteredValue}
+        value={searchData}
         onKeyDown={handleKeyDown}
       />
     </div>

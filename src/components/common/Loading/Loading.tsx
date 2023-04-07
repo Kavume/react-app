@@ -1,18 +1,12 @@
 import React from 'react';
 import styles from './Loading.module.scss';
+import { useAppSelector } from '../../../store/hooks';
 
-interface LoadingProps {
-  isLoading: boolean;
-}
-
-const Loading = (props: LoadingProps) => {
+const Loading = () => {
+  const status = useAppSelector((state) => state.cardsHomePage.status);
   return (
     <div className={styles.wrapper}>
-      {props.isLoading ? (
-        <p className={styles.load}>Progressing...</p>
-      ) : (
-        <p className={styles.load}>Successfully loaded</p>
-      )}
+      <p className={styles.load}>{`${status}`}</p>
     </div>
   );
 };
