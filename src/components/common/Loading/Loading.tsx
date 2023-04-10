@@ -5,8 +5,8 @@ import { useAppSelector } from '../../../store/hooks';
 const Loading = () => {
   const status = useAppSelector((state) => state.cardsHomePage.status);
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.load}>{`${status}`}</p>
+    <div className={styles.wrapper} data-testid="wrapper">
+      <p className={styles.load} data-testid="load">{`${status}`}</p>
     </div>
   );
 };

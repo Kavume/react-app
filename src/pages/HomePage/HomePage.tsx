@@ -21,7 +21,7 @@ const HomePage = () => {
           <h2 className={styles.title}>Site Search</h2>
           <p className={styles.text}>To begin searching, please press the enter key</p>
         </div>
-        <SearchBar />
+        <SearchBar data-testid="search-bar" />
       </div>
       <Loading />
       <div className={styles.cardsWrapper} data-testid="card-container">
@@ -34,11 +34,7 @@ const HomePage = () => {
               }
               title={`${card.user.first_name} ${card.user.last_name}`}
               authorInfo={card.user.username}
-              bio={
-                card.user.instagram_username === null || card.user.instagram_username === undefined
-                  ? "We don't have any information yet"
-                  : card.user.instagram_username
-              }
+              bio={card.user.instagram_username ?? "We don't have any information yet"}
               likes={card.likes}
               image={card.urls.small}
               fill={'none'}

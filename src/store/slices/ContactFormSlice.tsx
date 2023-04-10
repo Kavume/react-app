@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ContactFormState {
+export interface ContactFormState {
   cards: Record<string, unknown>[];
   isSubmit: boolean;
   error: string | null;
