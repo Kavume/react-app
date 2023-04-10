@@ -1,0 +1,99 @@
+.componentWrapper {
+  position: absolute;
+  color: var(--main-text);
+}
+
+.modalWrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  min-height: 50%;
+  background-color: var(--white);
+  margin: auto;
+  transform: translateY(-50%);
+  z-index: 2;
+  border-radius: 4px;
+  padding: 12px 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.blackBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.icon {
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  right: 16px;
+  top: 12px
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.socialMediaTitle, .infoSpan {
+  color: var(--secondary-text);
+  font-size: 0.9rem;
+}
+
+.socialMediaTitle {
+  margin-bottom: 12px;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 30%;
+  object-fit: cover;
+  border-radius: 2px;
+  margin: 12px 0;
+}
+
+.downloadLink {
+  font-size: 0.8rem;
+  color: var(--blue);
+  overflow: scroll;
+  align-items: flex-end;
+  padding: 24px 0 16px;
+  cursor: pointer;
+
+  .span {
+    font-weight: 500;
+  }
+}
+
+.downloadLink::-webkit-scrollbar {
+  width: 0;
+  height: 10px;
+}
+
+.downloadLink::-webkit-scrollbar-track {
+  background-color: var(--gray-forms);
+  border-radius: 12px;
+}
+
+.downloadLink::-webkit-scrollbar-thumb {
+  background-color: var(--blue);
+  border-radius: 50px;
+}
