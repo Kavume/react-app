@@ -20,10 +20,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "types": ["cypress", "node"]
   },
   "include": [
     "src",
-    "files.d.ts"
+    "files.d.ts",
+    "**/*.ts"
   ]
 }

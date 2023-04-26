@@ -18,7 +18,7 @@ interface ContactFormGetDataProps {
 const ContactFormGetData = (props: ContactFormGetDataProps) => {
   return (
     <div className={styles.listWrapper}>
-      <ol className={styles.list}>
+      <ol className={styles.list} data-testid="list">
         <li>Name: {props.formData.firstName}</li>
         <li>Surname: {props.formData.lastName}</li>
         <li>Gender: {props.formData.gender}</li>
