@@ -7,12 +7,13 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getFetchCards } from '../../store/slices/CardsHomePageSlice';
 
 const HomePage = () => {
+  const searchData = useAppSelector((state) => state.search.value);
   const cards = useAppSelector((state) => state.cardsHomePage.cards);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getFetchCards());
-  }, [dispatch]);
+    if (!searchData) dispatch(getFetchCards());
+  }, [dispatch, searchData]);
 
   return (
     <div className={styles.main} data-testid={'home-page'}>
