@@ -64,7 +64,7 @@ const Card = (props: CardProps) => {
       ) : (
         ''
       )}
-      <div className={styles.imageWrapper}>
+      <div className={styles.imageWrapper} data-testid="home-card">
         {imageLoaded ? (
           <img className={styles.image} src={props.image} alt="card image" />
         ) : (
