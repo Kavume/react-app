@@ -21,13 +21,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts -r @cypress/instrument-cra start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:coverage": " npm run test -- --coverage .",
     "eject": "react-scripts eject",
     "eslint": "eslint . --fix",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "cypress:coverage": "npx nyc instrument --compact=false src instrumented && npx cypress run --e2e && npx nyc report && npx nyc report --reporter=text-summary"
   },
   "eslintConfig": {
     "extends": [
@@ -52,8 +53,11 @@
     "@babel/preset-env": "^7.21.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/register": "^7.21.0",
+    "@cypress/code-coverage": "^3.10.4",
+    "@cypress/instrument-cra": "^1.4.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@types/cypress__code-coverage": "^3.10.0",
     "cypress": "^12.11.0",
     "cypress-file-upload": "^5.0.8",
     "eslint": "^8.36.0",
@@ -61,6 +65,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "jest": "^27.5.1",
+    "nyc": "^15.1.0",
     "prettier": "2.8.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0"
