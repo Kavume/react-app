@@ -1,2 +1,2 @@
 # kavume-JSFE2022Q3
-Private repository for @kavume
+In this repository, each branch abides by a central rule dedicated to the given task
